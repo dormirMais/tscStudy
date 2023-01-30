@@ -30,17 +30,11 @@
     };
   }
 
-  type State = true | false;
-
-  function printLoginState(state: State): SuccessState | FailState {
-    if (state)
-      return {
-        response: {
-          body: "success",
-        },
-      };
-    return {
-      reason: "로그인 실패",
-    };
+  function printLoginState(state: LoginState) {
+    if ("response" in state) {
+      console.log(state.response.body);
+    } else {
+      console.log(state.reason);
+    }
   }
 }
