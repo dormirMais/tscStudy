@@ -12,5 +12,7 @@
     return x + y; // 이 경우에도 TSC는 유사하게 inference(추론)을 진행한다. return type이 number일 것이라고 암묵적으로 추론한다. 똑똑함...
   }
 
-  const result = add(1, 2);
+  const result = add(1, 2); // 이경우 자동으로 result에 number type을 지정해준다.
+
+  // 하지만 중요한 건 명시적으로 적어주는 것이 좋다. 명확한게 좋기 때문이다. 나의 경우는 꼭 적어주는게 좋을 것 같다.
 }
