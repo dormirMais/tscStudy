@@ -7,22 +7,41 @@ console.log(calculate("multiply", 4, 2)); // 8
 console.log(calculate("divide", 4, 2)); // 2
 console.log(calculate("remainder", 5, 2)); // 1
 
-function calculate(
-  calculator: string,
-  num1: number,
-  num2: number
-): number | string {
-  switch (calculator) {
+// function calculate(
+//   calculator: string,
+//   num1: number,
+//   num2: number
+// ): number | string {
+//   switch (calculator) {
+//     case "add":
+//       return num1 + num2;
+//     case "substract":
+//       return num1 - num2;
+//     case "multiply":
+//       return num1 * num2;
+//     case "divide":
+//       return num1 / num2;
+//     case "remainder":
+//       return num1 % num2;
+//   }
+//   return "숫자와 연산을 정확히 입력해야 합니다. ";
+// }
+
+type Command = "add" | "substract" | "multiply" | "divide" | "remainder";
+
+function calculate(command: Command, a: number, b: number): number {
+  switch (command) {
     case "add":
-      return num1 + num2;
+      return a + b;
     case "substract":
-      return num1 - num2;
+      return a - b;
     case "multiply":
-      return num1 * num2;
+      return a * b;
     case "divide":
-      return num1 / num2;
+      return a / b;
     case "remainder":
-      return num1 % num2;
+      return a % b;
+    default:
+      throw Error("unknown command");
   }
-  return "숫자와 연산을 정확히 입력해야 합니다. ";
 }
