@@ -27,4 +27,7 @@
 
   type JSON = "json";
   const json: JSON = "json";
+
+  type Boal = true;
+  const isCat: Boal = true; //false를 할당 할 수 없다. 무조건 true만 들어갈 수 있다.
 }
