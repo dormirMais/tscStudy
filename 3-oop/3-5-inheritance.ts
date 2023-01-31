@@ -9,9 +9,8 @@
   }
 
   class CoffeeMachine implements CoffeeMaker {
-    // 이런식으로 interface는 multy implements가 가능하다.
     private static BEANS_GRAMS_PER_SHOT: number = 7; // private키워드를 이용해서 외부에서 참조가 불가능하도록 만들어준다.
-    private coffeeBeans: number = 0; // 반면 이렇게 일반적으로 정의하는 경우 Instance level로 정의된다.
+    private coffeeBeans: number = 0;
 
     public constructor(coffeBeans: number) {
       this.coffeeBeans = coffeBeans;
@@ -64,7 +63,7 @@
     private steamMilk() {
       console.log("steaming some milk");
     }
-    makeCoffee(shots: number): { shots: number; hasMilk: boolean } {
+    makeCoffee(shots: number): CoffeeCup {
       const coffee = super.makeCoffee(shots);
       return {
         ...coffee,
