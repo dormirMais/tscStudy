@@ -44,6 +44,27 @@
   }
 
   const maker = CoffeeMaker.makeMachine(32);
-  maker.fillCoffeeBeans(10);
-  console.log(maker);
+
+  //=================================================================
+
+  class User {
+    get fullName(): string {
+      return `${this.firstName} ${this.lastName}`;
+    }
+
+    private internalAge = 4;
+    get age(): number {
+      return this.internalAge;
+    }
+
+    set age(num: number) {
+      if (num < 0) throw new Error("you should input positive number");
+      this.internalAge = num;
+    }
+    constructor(private firstName: string, private lastName: string) {}
+  }
+
+  const user = new User("Haki", "Poki");
+  console.log(user.fullName);
+  user.age = 6; //internal age는 private이기 때문에 직접접근이 불가능하지만 setter를 통해서 설정이 가능하다.
 }
