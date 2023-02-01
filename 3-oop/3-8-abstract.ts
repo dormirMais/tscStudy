@@ -9,16 +9,16 @@
     makeCoffee(shots: number): CoffeeCup;
   }
 
-  class CoffeeMachine implements CoffeeMaker {
+  // abstract를 이용해서 추상화를 적용할 수 있다. 추상화가 진행된 클래스는 자체로 인스턴스를 생성해 낼 수 없다.
+  // 기본적으로 공통적으로 필요한 부분들은 일반적인 클래스를 작성하는 것과 동일하게 작성하면 된다.
+  // 반면에 상속받은 클래스에서 특수성을 띈 동작이 있는 경우 해당 메소드에는 abstract 키워드를 통해서 명시를 해준다. 해당 메소드는 상속을 받을 수 구체화 해준다.
+  // 컴포지션과 이렇게 클래스를 이용하여 해결하는 솔루션은 각각의 경우마다 적절함이 다르다. 따라서 잘 판단하여 적절하게 사용하는 것이 중요하다.
+  abstract class CoffeeMachine implements CoffeeMaker {
     private static BEANS_GRAMS_PER_SHOT: number = 7; // private키워드를 이용해서 외부에서 참조가 불가능하도록 만들어준다.
     private coffeeBeans: number = 0;
 
     public constructor(coffeBeans: number) {
       this.coffeeBeans = coffeBeans;
-    }
-
-    static makeMachine(coffeeBeans: number): CoffeeMachine {
-      return new CoffeeMachine(coffeeBeans);
     }
 
     fillCoffeeBeans(beans: number) {
@@ -31,13 +31,7 @@
       console.log("heating up....");
     }
 
-    private extract(shots: number): CoffeeCup {
-      console.log(`pulling ${shots} shots`);
-      return {
-        shots,
-        hasMilk: false,
-      };
-    }
+    protected abstract extract(shots: number): CoffeeCup; // abstract의 경우 그것을 상속받는 클래스에서 구현해 주기 때문에 abstract로 지정된 메소드는 명시만 해놓을 수 있다.
 
     private grindBeans(shots: number) {
       if (this.coffeeBeans < shots * CoffeeMachine.BEANS_GRAMS_PER_SHOT) {
@@ -64,47 +58,22 @@
     private steamMilk() {
       console.log("steaming some milk");
     }
-    makeCoffee(shots: number): CoffeeCup {
-      const coffee = super.makeCoffee(shots);
+
+    protected extract(shots: number): CoffeeCup {
+      this.steamMilk();
       return {
-        ...coffee,
+        shots,
         hasMilk: true,
       };
     }
   } // 기본적으로 extends를 사용해서 상속이 가능하다.
 
   class SweetCoffeMaker extends CoffeeMachine {
-    makeCoffee(shots: number): CoffeeCup {
-      const coffee = super.makeCoffee(shots);
+    protected extract(shots: number): CoffeeCup {
       return {
-        ...coffee,
+        shots,
         hasSugar: true,
       };
     }
   }
-
-  const machines: CoffeeMaker[] = [
-    //이렇게 implement된 interface를 사용하면 해당 interface에 있는 기능만 호출이 가능하다.
-    new CoffeeMachine(16),
-    new CaffeLatteMachine(16, "asd"),
-    new SweetCoffeMaker(16),
-    new CoffeeMachine(16),
-    new CaffeLatteMachine(16, "asd"),
-    new SweetCoffeMaker(16),
-  ];
-
-  /*
-  const machines: = [       이렇게 일반 적인 형태로 사용하면 요 아이들이 가지고 있는 공통 요소들을 사용할 수 있다.
-    new CoffeeMachine(16),
-    new CaffeLatteMachine(16, "asd"),
-    new SweetCoffeMaker(16),
-    new CoffeeMachine(16),
-    new CaffeLatteMachine(16, "asd"),
-    new SweetCoffeMaker(16),
-  ];
-  */
-  machines.forEach((machine) => {
-    console.log("==============================================");
-    machine.makeCoffee(1); //이게 바로 엄청난 장점이다. 어떤 클래스이던지 상관없이 하나의 메소드로 모두 동작을 수행하고 있다.
-  });
 }
