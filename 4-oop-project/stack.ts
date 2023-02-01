@@ -16,6 +16,7 @@ class StackImpl implements Stack {
 
   constructor(private capacity: number) {}
   get size() {
+    //interface 에서 readonly로 지정을 했기 때문에 getter로 만듬.
     return this._size;
   }
   push(value: string) {
