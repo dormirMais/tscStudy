@@ -14,7 +14,7 @@ class SimpleEither<L, R> implements Either<L, R> {
 }
 
 const either: Either<number, number> = new SimpleEither(4, 5);
-console.log(either.right()); // 4
-console.log(either.left()); // 5
+console.log(either.right()); // 5
+console.log(either.left()); // 4
 
 const best = new SimpleEither({ name: "haki" }, "hello");
