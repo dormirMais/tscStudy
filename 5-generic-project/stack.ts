@@ -1,4 +1,5 @@
 interface Stack<T> {
+  // 이런식으로 생각하면 좀 편하다. <T>라고 되어있을 때 T라는 타입을 받을 수 있다... 이런느낌 <T>가 있는 경우 "T를 사용할수 있는...!" 을 붙이면 된다.
   readonly size: number;
   push(value: T): void;
   pop(): T;
@@ -42,10 +43,10 @@ stack.push("ponki");
 while (stack.size !== 0) {
   console.log(stack.pop());
 }
-const stack2 = new StackImpl<number>(100);
+const stack2 = new StackImpl(100);
 stack2.push(123);
-stack2.push(234);
+stack2.push("234");
 stack2.push(345);
-while (stack.size !== 0) {
+while (stack2.size !== 0) {
   console.log(stack2.pop());
 }
