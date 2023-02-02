@@ -1,3 +1,6 @@
+class TimeoutError extends Error {}
+class OfflineError extends Error {}
+
 class NetWorkClient {
   tryConnect(): void {
     throw new Error("no network");
@@ -20,6 +23,8 @@ class App {
       this.userService.login();
     } catch (error) {
       // show dialog to user
+      // if(error instanceof OfflineError){} <= 이러한 문장이 불가능하다. error는 any type으로 전달이 되기 때문에 타입을 확인할 수 없다.
+      // 따라서 세부적인 error type을 나누어서 적용하고 싶다면 errorState를 적용하는 것이 좋다.
     }
   }
 }
